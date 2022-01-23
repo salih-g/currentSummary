@@ -26,20 +26,27 @@
       <header class="user">
         <div class="user-info">
           <h2 class="user-info-name">{{ question.title }}</h2>
-          <p class="user-info-time">4 min ago</p>
+          <p class="user-info-time">
+            {{ calcTime(new Date(question.updatedAt)) }} ago
+          </p>
         </div>
       </header>
       <main>
         <p>{{ question.question }}</p>
       </main>
       <section>
-        <p class="comment">10 comment</p>
+        <p class="answer">
+          <NuxtLink :to="`/question/${question._id}`" class="link">
+            {{ question.comments.length }} answer</NuxtLink
+          >
+        </p>
       </section>
     </div>
   </div>
 </template>
 
 <script>
+import { timeSince } from "../utils";
 export default {
   name: "IndexPage",
   data() {
@@ -66,6 +73,9 @@ export default {
         setTimeout(() => (this.postCreated = false), 2000);
       });
     },
+    calcTime(date) {
+      return timeSince(date);
+    },
   },
 };
 </script>
@@ -79,7 +89,6 @@ export default {
 .title {
   font-size: 20px;
   text-transform: capitalize;
-  color: #c6e1ed;
 }
 .postCreated {
   color: green;
@@ -146,6 +155,7 @@ export default {
   color: #fff;
   margin-top: 16px;
   line-height: 1.7;
+  text-align: left;
 }
 .card section {
   margin-top: 20px;
@@ -158,7 +168,7 @@ export default {
   font-size: 12px;
   margin-left: 10px;
 }
-.card section p.comment {
+.card section p.answer {
   margin-left: auto;
 }
 </style>

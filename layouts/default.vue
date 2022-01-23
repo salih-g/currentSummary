@@ -21,4 +21,8 @@ body {
 ul {
   list-style-type: none;
 }
+.link {
+  text-decoration: none;
+  color: inherit;
+}
 </style>
