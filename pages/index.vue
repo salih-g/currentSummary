@@ -28,6 +28,7 @@ html,
 body {
   padding: 0;
   margin: 0;
+  font-family: "Tomorrow", sans-serif;
 }
 
 * {
@@ -37,6 +38,9 @@ body {
   width: 90%;
   margin: 0 auto;
   text-align: center;
+}
+.title {
+  font-size: 20px;
 }
 .inputs {
   width: 50%;
