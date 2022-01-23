@@ -71,21 +71,6 @@ export default {
 </script>
 
 <style>
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: "Tomorrow", sans-serif;
-  overflow-x: hidden;
-  background-color: #1c1e2c;
-}
-* {
-  box-sizing: border-box;
-}
-ul {
-  list-style-type: none;
-}
-
 .container {
   width: 90%;
   margin: 0 auto;
@@ -154,7 +139,7 @@ ul {
 }
 .card header .user-info-time {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.588);
+  color: #ffffff96;
 }
 .card main p {
   font-size: 14px;
@@ -169,7 +154,7 @@ ul {
 }
 
 .card section p {
-  color: rgba(255, 255, 255, 0.508);
+  color: #ffff;
   font-size: 12px;
   margin-left: 10px;
 }
