@@ -25,4 +25,9 @@ ul {
   text-decoration: none;
   color: inherit;
 }
+.container {
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
 </style>

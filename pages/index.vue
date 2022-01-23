@@ -1,25 +1,33 @@
 <template>
   <div class="container">
     <h1 class="title">Current Summary</h1>
-    <h3 v-if="postCreated" class="postCreated">Post Created</h3>
-    <div class="inputs">
+
+    <div class="form">
+      <h3 v-if="postCreated" class="postCreated">Post Created</h3>
+      <div class="inputs">
+        <input
+          type="text"
+          id="title"
+          placeholder="Title"
+          class="input"
+          v-model="postData.title"
+        />
+        <textarea
+          type="text"
+          id="question"
+          rows="5"
+          class="input-textarea"
+          placeholder="What is your question?"
+          v-model="postData.question"
+        />
+      </div>
       <input
-        type="text"
-        id="title"
-        placeholder="Title"
-        class="input"
-        v-model="postData.title"
-      />
-      <textarea
-        type="text"
-        id="question"
-        rows="5"
-        class="input-textarea"
-        placeholder="What is your question?"
-        v-model="postData.question"
+        type="submit"
+        value="Submit"
+        class="buttton"
+        @click="handleCreate"
       />
     </div>
-    <input type="submit" value="Submit" class="buttton" @click="handleCreate" />
 
     <div class="card" v-for="(question, key) in questions" :key="key">
       <div class="ovelay"></div>
@@ -60,7 +68,7 @@ export default {
     };
   },
   async created() {
-    await this.$axios.$get("").then((data) => {
+    await this.$axios.$get("/").then((data) => {
       this.questions = data;
     });
   },
@@ -81,17 +89,12 @@ export default {
 </script>
 
 <style>
-.container {
-  width: 90%;
-  margin: 0 auto;
-  text-align: center;
-}
 .title {
   font-size: 20px;
   text-transform: capitalize;
 }
 .postCreated {
-  color: green;
+  color: #36eb36;
 }
 .inputs {
   width: 50%;

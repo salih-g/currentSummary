@@ -15,6 +15,20 @@ router.post("/", async (req, res) => {
   }
 });
 
+//Create answer
+router.put("/:id/answer", async (req, res) => {
+  const { id } = req.params;
+  const { answer } = req.body;
+
+  try {
+    const question = await Question.findById({ _id: id });
+    await question.updateOne({ $push: { comments: answer } });
+    return res.status(200).json({ message: "successfully updated" });
+  } catch (err) {
+    res.status(500).json({ error: err.message || err });
+  }
+});
+
 //Get All
 router.get("/", async (req, res) => {
   try {
@@ -30,7 +44,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const question = await Question.findById(id);
+    const question = await Question.findById({ _id: id });
     res.status(200).json(question);
   } catch (err) {
     res.status(500).json({ error: err.message || err });
