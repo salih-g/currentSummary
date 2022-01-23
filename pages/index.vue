@@ -68,17 +68,21 @@ export default {
     };
   },
   async created() {
-    await this.$axios.$get("/").then((data) => {
-      this.questions = data;
-    });
+    this.getQuestions();
   },
   methods: {
+    async getQuestions() {
+      await this.$axios.$get("/").then((data) => {
+        this.questions = data;
+      });
+    },
     async handleCreate() {
-      this.$axios.$post("/", this.postData).then(() => {
+      await this.$axios.$post("/", this.postData).then(() => {
         this.postData.title = "";
         this.postData.question = "";
         this.postCreated = true;
         setTimeout(() => (this.postCreated = false), 2000);
+        this.getQuestions();
       });
     },
     calcTime(date) {

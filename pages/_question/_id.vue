@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <NuxtLink to="/" class="link back"> Go Back</NuxtLink>
     <h1>{{ question.title }}</h1>
     <p>{{ question.question }}</p>
     <div class="form">
@@ -13,7 +14,12 @@
           v-model="postData.answer"
         />
       </div>
-      <input type="submit" value="Submit" class="buttton" />
+      <input
+        type="submit"
+        value="Submit"
+        class="buttton"
+        @click="handleCreate"
+      />
     </div>
     <div class="card" v-for="(answer, key) in question.comments" :key="key">
       <main>
@@ -39,17 +45,28 @@ export default {
     return { id };
   },
   async created() {
-    await this.$axios.$get(`/${this.id}`).then((data) => {
-      this.question = data;
-    });
+    this.getQuestion();
   },
-  methods: {},
+  methods: {
+    async getQuestion() {
+      await this.$axios.$get(`/${this.id}`).then((data) => {
+        this.question = data;
+      });
+    },
+    async handleCreate() {
+      await this.$axios.$put(`/${this.id}/answer`, this.postData).then(() => {
+        this.getQuestion();
+      });
+    },
+  },
 };
 </script>
 
 <style scoped>
-.postCreated {
-  color: #36eb36;
+.back {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .inputs {
   width: 50%;
