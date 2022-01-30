@@ -1,35 +1,56 @@
 <template>
-  <div class="container">
+  <div>
     <NuxtLink to="/" class="link back"> Go Back</NuxtLink>
-    <h1>{{ question.title }}</h1>
-    <p>{{ question.question }}</p>
-    <div class="form">
-      <div class="inputs">
-        <textarea
-          type="text"
-          id="question"
-          rows="5"
-          class="input-textarea"
-          placeholder="What is your answer?"
-          v-model="postData.answer"
-        />
+    <div class="container">
+      <div class="card text-white bg-primary mb-3" style="max-width: 60%">
+        <div class="card-header">
+          <h5 class="card-title">
+            {{ question.title }}
+          </h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            {{ calcTime(new Date(question.updatedAt)) }} ago
+          </h6>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            {{ question.question }}
+          </p>
+          <p class="card-text">
+            <textarea
+              type="text"
+              id="question"
+              rows="5"
+              class="input-textarea"
+              placeholder="What is your answer?"
+              v-model="postData.answer"
+            />
+          </p>
+          <button
+            type="button"
+            class="btn btn-secondary cz-color-16777215 cz-color-4472634 cz-color-0"
+            @click="handleCreate"
+          >
+            Submit
+          </button>
+        </div>
       </div>
-      <input
-        type="submit"
-        value="Submit"
-        class="buttton"
-        @click="handleCreate"
-      />
-    </div>
-    <div class="card" v-for="(answer, key) in question.comments" :key="key">
-      <main>
-        <p>{{ answer }}</p>
-      </main>
+
+      <div v-for="(answer, key) in question.comments" :key="key">
+        <div class="card text-white bg-primary mb-3" style="max-width: 80%">
+          <div class="card-body">
+            <p class="card-text">
+              {{ answer }}
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { timeSince } from "../../utils";
+
 export default {
   name: "Question",
   data() {
@@ -58,46 +79,10 @@ export default {
         this.getQuestion();
       });
     },
+
+    calcTime(date) {
+      return timeSince(date);
+    },
   },
 };
 </script>
-
-<style scoped>
-.back {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-.inputs {
-  width: 50%;
-  margin: 0 auto;
-}
-.input-textarea {
-  width: 100%;
-  border-radius: 5px;
-  margin-bottom: 5px;
-  padding: 10px;
-}
-
-.buttton {
-  padding: 10px 30px;
-  margin-bottom: 10px;
-
-  background-color: #c6e1ed;
-  color: black;
-
-  border: none;
-  border-radius: 5px;
-
-  cursor: pointer;
-}
-.card {
-  border-radius: 20px;
-  background: #191a1d;
-  overflow: hidden;
-  padding: 14px;
-
-  margin: 10px auto;
-  width: 40%;
-}
-</style>

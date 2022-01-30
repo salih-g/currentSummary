@@ -1,54 +1,62 @@
 <template>
   <div class="container">
-    <h1 class="title">Current Summary</h1>
-
+    <h1 class="text-center">Current Summary</h1>
     <div class="form">
-      <h3 v-if="postCreated" class="postCreated">Post Created</h3>
-      <div class="inputs">
-        <input
-          type="text"
-          id="title"
-          placeholder="Title"
-          class="input"
-          v-model="postData.title"
-        />
-        <textarea
-          type="text"
-          id="question"
-          rows="5"
-          class="input-textarea"
-          placeholder="What is your question?"
-          v-model="postData.question"
-        />
+      <div class="card text-white bg-primary mb-3" style="max-width: 50%">
+        <div class="card-header">
+          <input
+            class="form-control form-control-sm"
+            type="text"
+            placeholder="Title"
+            id="inputSmall"
+            v-model="postData.title"
+            style="max-width: 25%"
+          />
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            <textarea
+              type="text"
+              id="question"
+              rows="5"
+              class="input-textarea"
+              placeholder="What is your question?"
+              v-model="postData.question"
+            />
+          </p>
+          <button
+            type="button"
+            class="btn btn-secondary cz-color-16777215 cz-color-4472634 cz-color-0"
+            @click="handleCreate"
+          >
+            Primary
+          </button>
+        </div>
       </div>
-      <input
-        type="submit"
-        value="Submit"
-        class="buttton"
-        @click="handleCreate"
-      />
     </div>
 
-    <div class="card" v-for="(question, key) in questions" :key="key">
-      <div class="ovelay"></div>
-      <header class="user">
-        <div class="user-info">
-          <h2 class="user-info-name">{{ question.title }}</h2>
-          <p class="user-info-time">
+    <div v-for="(question, key) in questions" :key="key">
+      <div class="card text-white bg-primary mb-3" style="max-width: 80%">
+        <div class="card-header">
+          <h5 class="card-title">
+            {{ question.title }}
+          </h5>
+          <h6 class="card-subtitle mb-2 text-muted">
             {{ calcTime(new Date(question.updatedAt)) }} ago
-          </p>
+          </h6>
         </div>
-      </header>
-      <main>
-        <p>{{ question.question }}</p>
-      </main>
-      <section>
-        <p class="answer">
-          <NuxtLink :to="`/question/${question._id}`" class="link">
-            {{ question.comments.length }} answer</NuxtLink
+        <div class="card-body">
+          <p class="card-text">
+            {{ question.question }}
+          </p>
+          <div style="max-width: 200px"></div>
+          <NuxtLink :to="`/question/${question._id}`">
+            <div class="text-end">
+              {{ question.comments.length }} answer
+            </div></NuxtLink
           >
-        </p>
-      </section>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -93,89 +101,8 @@ export default {
 </script>
 
 <style>
-.title {
-  font-size: 20px;
-  text-transform: capitalize;
-}
-.postCreated {
-  color: #36eb36;
-}
-.inputs {
-  width: 50%;
-  margin: 0 auto;
-}
-.input {
-  display: flex;
-  align-self: flex-start;
-
-  width: 50%;
-  height: 30px;
-  margin-bottom: 5px;
-  border-radius: 5px;
-  padding: 10px;
-}
 .input-textarea {
   width: 100%;
-  border-radius: 5px;
-  margin-bottom: 5px;
-  padding: 10px;
-}
-
-.buttton {
-  padding: 10px 30px;
-  margin-bottom: 10px;
-
-  background-color: #c6e1ed;
-  color: black;
-
-  border: none;
-  border-radius: 5px;
-
-  cursor: pointer;
-}
-
-.card {
-  border-radius: 20px;
-  background: #191a1d;
-  overflow: hidden;
-  padding: 14px;
-
-  margin: 10px auto;
-  width: 80%;
-}
-.card header.user {
-  display: flex;
-  gap: 12px;
-}
-.card header .user-info-name {
-  letter-spacing: 0.4px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #fff;
-}
-.card header .user-info-time {
-  font-size: 12px;
-  color: #ffffff96;
-}
-.card main p {
-  font-size: 14px;
-  color: #fff;
-  margin-top: 16px;
-  line-height: 1.7;
-  text-align: left;
-}
-.card section {
-  margin-top: 20px;
-  display: flex;
-  align-items: center;
-}
-
-.card section p {
-  color: #ffff;
-  font-size: 12px;
-  margin-left: 10px;
-}
-.card section p.answer {
-  margin-left: auto;
+  height: 100%;
 }
 </style>
