@@ -70,14 +70,21 @@ export default {
   },
   methods: {
     async getQuestion() {
-      await this.$axios.$get(`/${this.id}`).then((data) => {
-        this.question = data;
-      });
+      await this.$axios
+        .$get(`https://current-summary.vercel.app/api/questions/${this.id}`)
+        .then((data) => {
+          this.question = data;
+        });
     },
     async handleCreate() {
-      await this.$axios.$put(`/${this.id}/answer`, this.postData).then(() => {
-        this.getQuestion();
-      });
+      await this.$axios
+        .$put(
+          `https://current-summary.vercel.app/api/questions/${this.id}/answer`,
+          this.postData
+        )
+        .then(() => {
+          this.getQuestion();
+        });
     },
 
     calcTime(date) {

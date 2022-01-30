@@ -79,18 +79,25 @@ export default {
   },
   methods: {
     async getQuestions() {
-      await this.$axios.$get("/").then((data) => {
-        this.questions = data;
-      });
+      await this.$axios
+        .$get("https://current-summary.vercel.app/api/questions")
+        .then((data) => {
+          this.questions = data;
+        });
     },
     async handleCreate() {
-      await this.$axios.$post("/", this.postData).then(() => {
-        this.postData.title = "";
-        this.postData.question = "";
-        this.postCreated = true;
-        setTimeout(() => (this.postCreated = false), 2000);
-        this.getQuestions();
-      });
+      await this.$axios
+        .$post(
+          "https://current-summary.vercel.app/api/questions",
+          this.postData
+        )
+        .then(() => {
+          this.postData.title = "";
+          this.postData.question = "";
+          this.postCreated = true;
+          setTimeout(() => (this.postCreated = false), 2000);
+          this.getQuestions();
+        });
     },
     calcTime(date) {
       return timeSince(date);
