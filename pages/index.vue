@@ -29,7 +29,7 @@
             class="btn btn-secondary cz-color-16777215 cz-color-4472634 cz-color-0"
             @click="handleCreate"
           >
-            Primary
+            Submit
           </button>
         </div>
       </div>
@@ -49,7 +49,6 @@
           <p class="card-text">
             {{ question.question }}
           </p>
-          <div style="max-width: 200px"></div>
           <NuxtLink :to="`/question/${question._id}`">
             <div class="text-end">
               {{ question.comments.length }} answer
