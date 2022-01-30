@@ -8,5 +8,25 @@
         "serverFiles": ["server/api/index.js"]
       }
     }
+  ],
+  "routes": [
+    {
+      "src": "/_nuxt/.+",
+      "headers": {
+        "Cache-Control": "public, max-age=31557600"
+      }
+    },
+    {
+      "src": "/sw.js",
+      "dest": "/_nuxt/static/sw.js",
+      "headers": {
+        "Cache-Control": "public, max-age=43200, immutable",
+        "Service-Worker-Allowed": "/"
+      }
+    },
+    {
+      "src": "^/(.*)",
+      "dest": "/"
+    }
   ]
 }
